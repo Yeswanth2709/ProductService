@@ -9,11 +9,11 @@ public interface ProductService {
     public Product getProductById(long productId) throws ProductNotFoundException;
     public List<Product> getAllProducts();
 
-    Product createProduct(String title, String description, double price, String image, String category);
+    Product createProduct(String title, String description, double price, String image, String categoryName);
 
     Product updateProductPrice(long productId, double price) throws ProductNotFoundException;
 
     Product updateProductImage(long productId, String image)throws ProductNotFoundException;
 
-    Product deleteProduct(long productId)throws ProductNotFoundException;
+    void deleteProduct(long productId)throws ProductNotFoundException;
 }
