@@ -5,6 +5,7 @@ import com.projects.productservice.dtos.FakeStoreProductDto;
 import com.projects.productservice.exceptions.ProductNotFoundException;
 import com.projects.productservice.models.Product;
 import com.projects.productservice.utils.ProductUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,13 +29,13 @@ public class FakeStoreProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllProducts() {
+    public Page<Product> getAllProducts(int pageSize,int pageNumber) {
         FakeStoreProductDto[] productDtos = fakeStoreApiClient.getAllProducts();
         List<Product> products = new ArrayList<>();
         for(FakeStoreProductDto productDto:productDtos){
             products.add(ProductUtils.convertDtotoProduct(productDto));
         }
-        return products;
+        return null;
     }
 
     @Override

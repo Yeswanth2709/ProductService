@@ -33,9 +33,10 @@ public class ProductController {
     }
 
     @GetMapping()
-    public ResponseEntity<ProductsResponseDto> getAllProducts() {
+    public ResponseEntity<ProductsResponseDto> getAllProducts(@RequestParam(value="pageSize",defaultValue = "10") int pageSize,
+                                                              @RequestParam(value="pageNum",defaultValue = "0") int pageNum) {
         ProductsResponseDto responseDto = new ProductsResponseDto();
-        responseDto.setProductList(productService.getAllProducts());
+        responseDto.setProductList(productService.getAllProducts(pageSize,pageNum));
         responseDto.setResponse(Response.getSuccessResponse());
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }

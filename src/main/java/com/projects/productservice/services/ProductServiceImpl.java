@@ -6,6 +6,9 @@ import com.projects.productservice.models.Product;
 import com.projects.productservice.repositories.CategoryRepository;
 import com.projects.productservice.repositories.ProductRepository;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,8 +35,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllProducts() {
-         return productRepository.findAll();
+    public Page<Product> getAllProducts(int pageSize,int pageNumber) {
+        pageSize = Math.min(pageSize,10);
+        return productRepository.findAll(PageRequest.of(pageNumber, pageSize, Sort.by("price").descending()));
     }
 
     @Override
@@ -70,6 +74,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(long productId) throws ProductNotFoundException {
+        Product product = getProductById(productId);
         productRepository.deleteById(productId);
     }
 }
